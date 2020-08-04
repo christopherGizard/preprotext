@@ -1,4 +1,8 @@
 from tkinter import *
+from tkinter.ttk import *
+
+from selectionFrame import *
+
 
 class PresentationFrame(Frame):
 	def __init__(self, master):
@@ -13,7 +17,7 @@ class PresentationFrame(Frame):
 		buttonF.pack(side="bottom", fill="both",padx=5, pady=5)
 		
 		#Widget
-		button = Button(buttonF, text ="Continue")
+		button = Button(buttonF, text ="Continue",command=lambda: master.switch_frame(SelectionFrame))
 		button.pack(side="right")
 
 		label = Label(labelF,text="""Welcome to preprotext tool.
