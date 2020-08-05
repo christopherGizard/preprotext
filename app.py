@@ -18,7 +18,7 @@ class PreProApp(tk.Tk):
 			self.frame.pack_forget()
 		self.frame = new_frame
 		self.frame.pack()
-		print(self.previousFrame)
+		
 
 	def previous_frame(self):
 		if self.previousFrame is not None:

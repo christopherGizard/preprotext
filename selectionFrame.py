@@ -48,10 +48,10 @@ class SelectionFrame(Frame):
 		self.button = Button(buttonFrame,text="Next",state='disabled',command=lambda: master.switch_frame(ParamSelectionFrame))
 		self.button.pack(side="right",padx=5,pady=5)
 
-		selectButton = Button(selectFrame,text="Search",command=self.selectFile)
+		selectButton = Button(selectFrame,text="Search",command=self.select_file)
 		selectButton.pack()
 
-	def selectFile(self):
+	def select_file(self):
 		filename =  filedialog.askopenfilename(initialdir = "Documents",title = "Select file")
 		if filename :
 			fa = FileAnalyser(filename)
