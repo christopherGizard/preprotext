@@ -40,6 +40,8 @@ class SelectionFrame(Frame):
 		self.tab.column('Lines',width=60,anchor="center")
 		self.tab['show'] = 'headings' # sans ceci, il y avait une colonne vide à gauche qui a pour rôle d'afficher le paramètre "text" qui peut être spécifié lors du insert
 		self.tab.pack(padx = 10, pady = (0, 10))
+		self.tab.bind("<Double-1>", self.preview)
+ 
 
 
 		resetButton = Button(buttonFrame, text="Reset files",command=self.reset)
@@ -66,3 +68,38 @@ class SelectionFrame(Frame):
 		for item in x:
 			self.tab.delete(item)
 		self.button['state']='disabled'
+
+	def preview(self, event):
+		item = self.tab.identify('item',event.x,event.y)
+		try:
+			pathFile = self.tab.item(item,"values")[1]
+		except:
+			pathFile=""
+
+		if pathFile :
+			self.previewWindow = Toplevel(self)
+			self.previewWindow.grab_set()
+
+			#Frame
+			supFrame = Frame(self.previewWindow)
+			supFrame.pack(side="top")
+
+			infFrame = Frame(self.previewWindow)
+			infFrame.pack(side="bottom")
+
+			textArea = Text(supFrame)
+			textArea.pack()
+			compteur = 0
+			with open(pathFile,encoding='utf-8') as f:
+				line = f.readline()
+				textArea.insert('end', line)
+				compteur+=1
+
+				while line and compteur < 50:
+					line = f.readline()
+					textArea.insert('end', line)
+					compteur+=1
+
+			closeButton = Button(infFrame,text= "Close preview",command = self.previewWindow.destroy)
+			closeButton.pack()
+

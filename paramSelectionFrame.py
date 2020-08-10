@@ -73,7 +73,7 @@ class ParamSelectionFrame(Frame):
 		listboxLabel.pack(side="top")
 
 		self.listbox = Listbox(filFrame,exportselection=False)
-		values = ['Sentencer','Word Tokenizer','Stop Words Suppression','Punctuation Suppression','LowerCase Text','Lemming','Stemming','Custom Words Removal','Custom Regex']
+		values = ['Sentencer','Word Tokenizer','Suppressor']
 		for v in values:
 			if v not in self.parameters:
 				self.listbox.insert('end',v)
