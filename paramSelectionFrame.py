@@ -53,7 +53,7 @@ class ParamSelectionFrame(Frame):
 	def add_param(self):
 		self.window = Toplevel(self)
 		self.window.grab_set()
-		print(self.parameters)
+		
 		#Frame
 		topFrame = Frame(self.window)
 		topFrame.pack(side='top')
@@ -132,7 +132,6 @@ class ParamSelectionFrame(Frame):
 		w = evt.widget
 		index = int(w.curselection()[0])
 		value = w.get(index)
-		print("You selected item {}:{} ".format(index, value))
 		if value == "Sentencer":
 			self.sentencerFrame.pack()
 		else :
