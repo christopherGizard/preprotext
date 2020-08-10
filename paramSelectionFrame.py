@@ -3,6 +3,7 @@ from tkinter.ttk import *
 
 #from selectionFrame import SelectionFrame
 from tools.nlp.sentencer import Sentencer
+from tools.nlp.worder import Worder
 
 class ParamSelectionFrame(Frame):
 	def __init__(self, master):
@@ -88,17 +89,32 @@ class ParamSelectionFrame(Frame):
 
 		#Sentencer Options
 		self.sentencerFrame = Frame(self.optFrame)
-		libraryListbox = Listbox(self.sentencerFrame,name='library',exportselection=False)
+		sentencerLibraryListbox = Listbox(self.sentencerFrame,name='library',exportselection=False)
 		for v in Sentencer.AvailableLibrary:
-			libraryListbox.insert('end',v)
-		libraryListbox.pack(side='left',padx=10,pady=10)
-		libraryListbox.bind('<<ListboxSelect>>', lambda event: self.set_options(event, "library"))
+			sentencerLibraryListbox.insert('end',v)
+		sentencerLibraryListbox.pack(side='left',padx=10,pady=10)
+		sentencerLibraryListbox.bind('<<ListboxSelect>>', lambda event: self.set_options(event, "library"))
 
-		languageListbox = Listbox(self.sentencerFrame,name='language',exportselection=False)
+		sentencerLanguageListbox = Listbox(self.sentencerFrame,name='language',exportselection=False)
 		for v in Sentencer.AvailableLanguage:
-			languageListbox.insert('end',v)
-		languageListbox.pack(side='right',padx=10,pady=10)
-		languageListbox.bind('<<ListboxSelect>>',  lambda event: self.set_options(event, "language"))
+			sentencerLanguageListbox.insert('end',v)
+		sentencerLanguageListbox.pack(side='right',padx=10,pady=10)
+		sentencerLanguageListbox.bind('<<ListboxSelect>>',  lambda event: self.set_options(event, "language"))
+
+		#Worder Options
+		self.worderFrame = Frame(self.optFrame)
+		worderLibraryListbox = Listbox(self.worderFrame,name='library',exportselection=False)
+		for v in Worder.AvailableLibrary:
+			worderLibraryListbox.insert('end',v)
+		worderLibraryListbox.pack(side='left',padx=10,pady=10)
+		worderLibraryListbox.bind('<<ListboxSelect>>', lambda event: self.set_options(event, "library"))
+
+		worderLanguageListbox = Listbox(self.worderFrame,name='language',exportselection=False)
+		for v in Worder.AvailableLanguage:
+			worderLanguageListbox.insert('end',v)
+		worderLanguageListbox.pack(side='right',padx=10,pady=10)
+		worderLanguageListbox.bind('<<ListboxSelect>>',  lambda event: self.set_options(event, "language"))
+
 
 		#Add,delete and reset filters
 	def add_filter(self):
@@ -127,16 +143,24 @@ class ParamSelectionFrame(Frame):
 			self.tab.delete(item)
 		self.nextButton['state']='disabled'
 
+	def clean_options(self):
+		self.options = {}
+		self.sentencerFrame.pack_forget()
+		self.worderFrame.pack_forget()
+
 
 	def change_options(self,evt):
 		w = evt.widget
 		index = int(w.curselection()[0])
 		value = w.get(index)
 		if value == "Sentencer":
+			self.clean_options()
 			self.sentencerFrame.pack()
+		elif value =="Word Tokenizer":
+			self.clean_options()
+			self.worderFrame.pack()
 		else :
-			self.options ={}
-			self.sentencerFrame.pack_forget()
+			self.clean_options()
 
 	def set_options(self,evt,name):
 		w=evt.widget
